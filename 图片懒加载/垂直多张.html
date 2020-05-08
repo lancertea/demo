@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>垂直多张</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .imgBox {
+            margin: 1000px auto;
+            box-sizing: border-box;
+            border: none;
+            width: 1000px;
+            height: 400px;
+            background: #ccc;
+            /* 防止变形 */
+            /* overflow: hidden; */
+        }
+
+        .imgBox img {
+            border: none;
+            width: 100%;
+            height: 100%;
+            display: none;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="imgBox">
+        <img src="" alt="" myImg="images/2.jpg">
+    </div>
+    <script>
+        let imgBox = document.querySelector(".imgBox"),
+            Img = imgBox.querySelector('img');
+        
+        window.onscroll=function(){
+
+        }
+
+// 以后补充垂直多张和瀑布流
+    </script>
+</body>
+
+</html>
