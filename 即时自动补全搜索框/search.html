@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>自动补全搜索框</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        input {
+            display: block;
+            width: 500px;
+            height: 30px;
+            margin: 150px auto 0;
+        }
+
+        ul {
+            list-style-type: none;
+            width: 500px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+        }
+
+        li {
+            font-size: 14px;
+            line-height: 30px;
+            text-indent: 10px;
+            cursor: pointer;
+        }
+
+        li:hover {
+            background: #e9e9e9;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <label>
+        <input type="text" onkeyup="query(this)" />
+    </label>
+    <ul>
+        <!--<li></li>-->
+        <!-- 这里为啥不用li，因为我们这里需要的不是固定的li列表 -->
+    </ul>
+
+    <script>
+        //定义一个函数query，搜索关键字相关的补全操作
+        function query(_this) {
+            //console.log(this);   //这里的this是谁？执行这个函数的人——这里会打印window，因为我们这个函数时定义在全局里面的
+            //console.log(_this);   //参数，接上HTML中的query(this)函数传参调用，所以我们重新以参数的形式传入this（加了下划线），这样以后，指向的就是input了
+            var key = _this.value; //获取文本框的内容
+            var script = document.createElement('script'); //这一步的用意：我们本应将网址链接以scrip标签的形式引入
+            //百度搜索引擎接口
+            script.src = 'https://www.baidu.com/sugrec?prod=pc&wd=' + key + '&cb=mxc';
+            document.body.appendChild(script);
+            //接口——即 URL地址
+        }
+
+        function mxc(data) {
+            document.getElementsByTagName('ul')[0].innerHTML = ''; //清空原始内容
+            console.log(data.g);
+            //如何找？   console.log(data.g)——打开控制台，发现data的g属性被用于保存jsonp数据
+            data.g.forEach(function (el) { //el代表所访问到的元素
+                var oli = document.createElement('li');
+                oli.innerHTML = el.q; //g数组中的q属性代表了每一个li
+                document.getElementsByTagName('ul')[0].appendChild(oli);
+            }); //遍历数组
+        }
+    </script>
+
+</body>
+
+</html>
